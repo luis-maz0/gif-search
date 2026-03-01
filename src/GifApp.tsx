@@ -1,21 +1,23 @@
-import { mockGifs } from "./mock/gifs.mock";
 import { CustomHeader } from "./shared/components/CustomHeader";
 import { SearchInput } from "./shared/components/SearchInput";
 import { HistoryTags } from "./gifs/components/HistoryTags";
 import { GifGrid } from "./gifs/components/GifGrid";
 import { useState } from "react";
+import { getGifsByQuery } from "./gifs/actions/get-gifs-by-query.action";
+import type { Gif } from "./gifs/interfaces/gif";
 
 const GifApp = () => {
   const [previousSearches, setPreviousSearches] = useState([
     "Breaking bad",
     "Game of thrones",
   ]);
+  const [gifs, setGifs] = useState<Gif[]>([]);
 
   const handleTagClick = (search: string) => {
     console.log({ search });
   };
 
-  const handleInputSearch = (query: string) => {
+  const handleInputSearch = async (query: string) => {
     //[ ]: Refactorizar utilizando 'Guard Clauses' o 'Early return'
     const MAX_SEARCHES = 8;
     console.log("handleInputSearch ejecutandose");
@@ -24,7 +26,8 @@ const GifApp = () => {
       setPreviousSearches(
         [cleanQuery, ...previousSearches].splice(0, MAX_SEARCHES),
       );
-      console.log("Busqueda terminada con exito");
+      const gifsResult = await getGifsByQuery(query);
+      setGifs(gifsResult);
     }
   };
 
@@ -39,7 +42,7 @@ const GifApp = () => {
         previousSearches={previousSearches}
         onTagClick={(search) => handleTagClick(search)}
       />
-      <GifGrid gifs={mockGifs} />
+      <GifGrid gifs={gifs} />
     </>
   );
 };
