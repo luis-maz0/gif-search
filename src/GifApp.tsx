@@ -13,8 +13,14 @@ const GifApp = () => {
   ]);
   const [gifs, setGifs] = useState<Gif[]>([]);
 
-  const handleTagClick = (search: string) => {
-    console.log({ search });
+  //[ ] Refactorizar de una manera más optima. Ver como implementar caché para evitar el uso excesivo de la api debido a que tiene un limite. 
+  const getGifs = async (query: string) => {
+    const gifsResult = await getGifsByQuery(query);
+    setGifs(gifsResult);
+  };
+
+  const handleTagClick = async (search: string) => {
+    getGifs(search);
   };
 
   const handleInputSearch = async (query: string) => {
@@ -26,8 +32,7 @@ const GifApp = () => {
       setPreviousSearches(
         [cleanQuery, ...previousSearches].splice(0, MAX_SEARCHES),
       );
-      const gifsResult = await getGifsByQuery(query);
-      setGifs(gifsResult);
+      getGifs(query);
     }
   };
 
