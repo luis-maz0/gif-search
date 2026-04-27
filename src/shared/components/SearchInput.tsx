@@ -6,10 +6,7 @@ interface Props {
 
 export const SearchInput = ({ onSearch }: Props) => {
   const [query, setQuery] = useState("");
-  //Cada vez que se oprime una tecla, la función de limpieza se ejecuta.
-  //Se está desmontando el componente con cada tecla?
-  //Por qué va también la función onSearch en las dependecias si solo cambia query?
-  //Si se ejecuta el handleKeyDown antes de que termine el setTimeOut, se ejecuta el use effect, haciendo que la función onSearch() se ejecuta dos veces.
+  
   useEffect(() => {
     const timeoutID = setTimeout(() => {
       if (query !== "") {

@@ -2,22 +2,21 @@ import { CustomHeader } from "./shared/components/CustomHeader";
 import { SearchInput } from "./shared/components/SearchInput";
 import { HistoryTags } from "./gifs/components/HistoryTags";
 import { GifGrid } from "./gifs/components/GifGrid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getGifsByQuery } from "./gifs/actions/get-gifs-by-query.action";
 import type { Gif } from "./gifs/interfaces/gif";
+import { useGifs } from "./hooks/useGifs";
 
 const GifApp = () => {
+  const { gifs, getGifs } = useGifs()
   const [previousSearches, setPreviousSearches] = useState([
     "Breaking bad",
     "Game of thrones",
   ]);
-  const [gifs, setGifs] = useState<Gif[]>([]);
 
-  //[ ] Refactorizar de una manera más optima. Ver como implementar caché para evitar el uso excesivo de la api debido a que tiene un limite. 
-  const getGifs = async (query: string) => {
-    const gifsResult = await getGifsByQuery(query);
-    setGifs(gifsResult);
-  };
+  useEffect(() => {
+    getGifs("breaking bad")
+  }, [])
 
   const handleTagClick = async (search: string) => {
     getGifs(search);
