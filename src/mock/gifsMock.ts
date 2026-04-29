@@ -1,6 +1,6 @@
 import type { Gif } from "../gifs/interfaces/gif";
 
-export const mockGifs: Gif[] = [
+export const gifsMock: Gif[] = [
   {
     id: "1",
     title: "Spongebob Squarepants",
