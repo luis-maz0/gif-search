@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CustomHeader } from "./components/CustomHeader";
 import { GifGrid } from "./components/GifGrid";
 import { InputSearch } from "./components/InputSearch";
@@ -28,6 +28,15 @@ export const GifApp = () => {
     const resultadosBusqueda = await getGifs(query)
     setGifs(resultadosBusqueda)
   };
+
+  useEffect( ()=> {
+      const renderizarAlPrincipio = async () => {
+        const primerBusqueda = await getGifs(busquedasPrevias[0])
+        setGifs(primerBusqueda)
+      }
+      renderizarAlPrincipio()
+      
+  }, [])
 
   return (
     <>
