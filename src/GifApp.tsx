@@ -3,12 +3,11 @@ import { CustomHeader } from "./components/CustomHeader";
 import { GifGrid } from "./components/GifGrid";
 import { InputSearch } from "./components/InputSearch";
 import { TagHistory } from "./components/TagHistory";
-import { getGifs } from "./services/gifService";
-import type { Gif } from "./interfaces/gif";
+import { useGifs } from "./hooks/useGifs";
 
 export const GifApp = () => {
 
-  const [gifs, setGifs] = useState<Gif[]>([])
+  const{gifs, fetchGifs} = useGifs()
 
   const [busquedasPrevias, setBusquedasPrevias] = useState([
     "Breaking bad",
@@ -25,17 +24,11 @@ export const GifApp = () => {
     const busquedasActuales = busquedasPrevias.slice(0, 8);
     busquedasActuales.unshift(query);
     setBusquedasPrevias(busquedasActuales);
-    const resultadosBusqueda = await getGifs(query)
-    setGifs(resultadosBusqueda)
+    fetchGifs(query)
   };
 
   useEffect( ()=> {
-      const renderizarAlPrincipio = async () => {
-        const primerBusqueda = await getGifs(busquedasPrevias[0])
-        setGifs(primerBusqueda)
-      }
-      renderizarAlPrincipio()
-      
+      fetchGifs(busquedasPrevias[0])
   }, [])
 
   return (
