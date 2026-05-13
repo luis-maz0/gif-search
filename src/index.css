@@ -164,3 +164,26 @@ input[type="text"]:focus {
   box-shadow: var(--shadow-md);
 }
 
+.btn-favorite {
+  width: 100%; /* Para que ocupe todo el ancho de la tarjeta */
+  padding: 0.6rem;
+  background-color: transparent;
+  color: var(--text-main);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem; /* Espacio entre el emoji y el texto */
+  margin-top: auto; /* Empuja el botón hacia abajo si la tarjeta es más alta */
+}
+
+.btn-favorite:hover {
+  background-color: var(--bg-color);
+  border-color: #f43f5e; 
+  color: #f43f5e;
+}

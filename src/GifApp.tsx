@@ -4,6 +4,7 @@ import { GifGrid } from "./components/GifGrid";
 import { InputSearch } from "./components/InputSearch";
 import { TagHistory } from "./components/TagHistory";
 import { useGifs } from "./hooks/useGifs";
+import { FavoriteGrid } from "./components/FavoriteGrid";
 
 export const GifApp = () => {
 
@@ -39,10 +40,12 @@ export const GifApp = () => {
       <InputSearch onQuery={handleInputSearch} />
 
       {/* History Tag */}
-      <TagHistory busquedasPrevias={busquedasPrevias} />
+      <TagHistory busquedasPrevias={busquedasPrevias} onTagClick={fetchGifs}/>
 
       {/* GrifGrid */}
       <GifGrid gifsMock={gifs} />
+
+      <FavoriteGrid />
     </>
   );
 };
