@@ -8,15 +8,17 @@ export const InputSearch = ({ onQuery }: Props) => {
   const [query, setQuery] = useState<string>("");
 
     useEffect(() => {
-    const timeOutId = setTimeout(() => {
-      console.log("Hola desde el efecto");
-      onQuery(query);
-    }, 1000);
+      if (query.trim() === "") return;
 
-    return () => {
-      clearTimeout(timeOutId);
-    };
-  }, [query, onQuery]);
+      const timeOutId = setTimeout(() => {
+        console.log("Hola desde el efecto");
+        onQuery(query);
+      }, 1000);
+
+      return () => {
+        clearTimeout(timeOutId);
+      };
+    }, [query, onQuery]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {

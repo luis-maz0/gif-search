@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { CustomHeader } from "./components/CustomHeader";
 import { GifGrid } from "./components/GifGrid";
 import { InputSearch } from "./components/InputSearch";
 import { TagHistory } from "./components/TagHistory";
 import { useGifs } from "./hooks/useGifs";
 import { FavoriteGrid } from "./components/FavoriteGrid";
+import { useHistory } from "./hooks/useHistory";
 
 export const GifApp = () => {
 
   const{gifs, fetchGifs} = useGifs()
 
-  const [busquedasPrevias, setBusquedasPrevias] = useState([
+  const {busquedasPrevias, addToHistory} = useHistory([
     "Breaking bad",
     "Prison Break",
     "The sopranos",
@@ -18,18 +19,14 @@ export const GifApp = () => {
 
 
   const handleInputSearch = async (query: string) => {
-    query = query.trim().toLocaleLowerCase();
-    if (query.length === 0) return;
-    if (busquedasPrevias.includes(query)) return;
-
-    const busquedasActuales = busquedasPrevias.slice(0, 8);
-    busquedasActuales.unshift(query);
-    setBusquedasPrevias(busquedasActuales);
+    addToHistory(query);
     fetchGifs(query)
   };
 
   useEffect( ()=> {
+    if(busquedasPrevias.length > 0) {
       fetchGifs(busquedasPrevias[0])
+    }
   }, [])
 
   return (
