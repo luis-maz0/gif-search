@@ -18,7 +18,7 @@ export const InputSearch = ({ onQuery }: Props) => {
       return () => {
         clearTimeout(timeOutId);
       };
-    }, [query, onQuery]);
+    }, [query]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
