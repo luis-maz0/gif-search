@@ -1,11 +1,11 @@
-import { useFavorites } from "../hooks/useFavorites";
 import type { Gif } from "../interfaces/gif";
 
 interface Props{
-    gifsMock: Gif[]
+    gifsMock: Gif[],
+    toggleFavorite: (gif:Gif) => void,
+    isFavorite: (id:string) => boolean
 }
-export const GifGrid = ({gifsMock}: Props) => {
-    const { toggleFavorite, isFavorite } = useFavorites();
+export const GifGrid = ({gifsMock, isFavorite, toggleFavorite}: Props) => {
 
     return (
         <section className="gif-grid">
