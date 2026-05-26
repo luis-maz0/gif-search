@@ -187,3 +187,40 @@ input[type="text"]:focus {
   border-color: #f43f5e; 
   color: #f43f5e;
 }
+
+/* --- Navegación SPA --- */
+
+.nav-container {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+  background: var(--surface-color);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  width: fit-content;
+}
+
+.nav-btn {
+  padding: 0.6rem 1rem;
+  background: transparent;
+  border: 2px solid transparent; /* Invisible por defecto */
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: var(--bg-color);
+  color: var(--text-main);
+}
+
+/* Esta clase se la aplicás cuando el botón es la página activa */
+.nav-btn.active {
+  background: var(--text-main);
+  color: white;
+  font-weight: 600;
+}
