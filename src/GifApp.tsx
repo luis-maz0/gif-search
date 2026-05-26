@@ -15,7 +15,7 @@ export const GifApp = () => {
 
   const {favorites, isFavorite, toggleFavorite} = useFavorites()
 
-  const [paginaActual, setPaginaActual] = useState<string>("favoritos")
+  const [paginaActual, setPaginaActual] = useState<string>("/")
 
   useEffect(() => {
 
