@@ -1,11 +1,14 @@
+import { useContext } from "react";
 import type { Gif } from "../interfaces/gif";
+import { FavoritesContext } from "../context/FavoriteContext";
 
 interface Props{
     gifsMock: Gif[],
-    toggleFavorite: (gif:Gif) => void,
-    isFavorite: (id:string) => boolean
 }
-export const GifGrid = ({gifsMock, isFavorite, toggleFavorite}: Props) => {
+export const GifGrid = ({gifsMock}: Props) => {
+
+
+    const { toggleFavorite, isFavorite } = useContext(FavoritesContext);
 
     return (
         <section className="gif-grid">

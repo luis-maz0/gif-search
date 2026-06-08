@@ -1,13 +1,9 @@
-import type { Gif } from "../interfaces/gif";
+import { useContext } from "react";
+import { FavoritesContext } from "../context/FavoriteContext";
 
-interface Props {
-    favorites: Gif[],
-    toggleFavorite: (gif:Gif) => void,
-    isFavorite: (id:string) => boolean
-}
+export const FavoriteGrid = () => {
 
-export const FavoriteGrid = ({favorites, toggleFavorite, isFavorite}: Props) => {
-
+    const { favorites, toggleFavorite, isFavorite } = useContext(FavoritesContext);
 
     if (favorites.length === 0) return null;
 

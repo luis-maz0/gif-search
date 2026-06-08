@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
-import { useFavorites } from "./hooks/useFavorites";
+import { useState, useEffect, useContext } from "react";
 import { FavoritesPage } from "./pages/FavoritesPage";
 import { SearchPage } from "./pages/SearchPage";
-import { CustomHeader } from "./components/CustomHeader";
+import { FavoritesContext } from "./context/FavoriteContext";
 
 const navigate = (path: string) => {
   window.history.pushState({}, "", path);
@@ -13,7 +12,7 @@ const navigate = (path: string) => {
 
 export const GifApp = () => {
 
-  const {favorites, isFavorite, toggleFavorite} = useFavorites()
+  const { favorites } = useContext(FavoritesContext);
 
   const [paginaActual, setPaginaActual] = useState<string>("/")
 
@@ -52,8 +51,8 @@ export const GifApp = () => {
         </button>
       </nav>
 
-      {paginaActual === "/" && <SearchPage isFavorite={isFavorite} toggleFavorite={toggleFavorite}></SearchPage>}
-      {paginaActual === "/favoritos" && <FavoritesPage favorites={favorites} isFavorite={isFavorite} toggleFavorite={toggleFavorite}></FavoritesPage>}
+      {paginaActual === "/" && <SearchPage ></SearchPage>}
+      {paginaActual === "/favoritos" && <FavoritesPage></FavoritesPage>}
     </>
   );
 };

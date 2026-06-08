@@ -5,14 +5,8 @@ import { InputSearch } from "../components/InputSearch";
 import { TagHistory } from "../components/TagHistory";
 import { useGifs } from "../hooks/useGifs";
 import { useHistory } from "../hooks/useHistory";
-import type { Gif } from "../interfaces/gif";
 
-interface Props {
-    toggleFavorite: (gif:Gif) => void,
-    isFavorite: (id:string) => boolean
-}
-
-export const SearchPage = ({toggleFavorite, isFavorite}: Props) => {
+export const SearchPage = () => {
 
     const {gifs, fetchGifs} = useGifs()
 
@@ -45,7 +39,7 @@ export const SearchPage = ({toggleFavorite, isFavorite}: Props) => {
                 <TagHistory busquedasPrevias={busquedasPrevias} onTagClick={fetchGifs}/>
 
             {/* GrifGrid */}
-            <GifGrid gifsMock={gifs} isFavorite={isFavorite} toggleFavorite={toggleFavorite}/>
+            <GifGrid gifsMock={gifs}/>
         </>
     );
 };
