@@ -1,58 +1,34 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
+import { Link, Routes, Route, useLocation } from "react-router";
 import { FavoritesPage } from "./pages/FavoritesPage";
 import { SearchPage } from "./pages/SearchPage";
 import { FavoritesContext } from "./context/FavoriteContext";
 
-const navigate = (path: string) => {
-  window.history.pushState({}, "", path);
-  
-  const navigationEvent = new Event("pushstate");
-  window.dispatchEvent(navigationEvent);
-};
-
 export const GifApp = () => {
-
   const { favorites } = useContext(FavoritesContext);
-
-  const [paginaActual, setPaginaActual] = useState<string>("/")
-
-  useEffect(() => {
-
-    const onLocationChange = () => {
-      setPaginaActual(window.location.pathname);
-    };
-
-    // evento personalizado nuestro
-    window.addEventListener("pushstate", onLocationChange);
-
-    // evento nativo del navegador (cuando el usuario toca "Atrás")
-    window.addEventListener("popstate", onLocationChange);
-
-    return () => {
-      window.removeEventListener("pushstate", onLocationChange);
-      window.removeEventListener("popstate", onLocationChange);
-    };
-  }, []);
+  const { pathname } = useLocation();
 
   return (
     <>
       <nav className="nav-container">
-        <button 
-          onClick={() => navigate("/")} 
-          className={`nav-btn ${paginaActual === "/" ? "active" : ""}`}
+        <Link
+          to="/"
+          className={`nav-btn ${pathname === "/" ? "active" : ""}`}
         >
           🔍 Buscar GIFs
-        </button>
-        <button 
-          onClick={() => navigate("/favoritos")} 
-          className={`nav-btn ${paginaActual === "/favoritos" ? "active" : ""}`}
+        </Link>
+        <Link
+          to="/favoritos"
+          className={`nav-btn ${pathname === "/favoritos" ? "active" : ""}`}
         >
           ❤️ Mis Favoritos ({favorites.length})
-        </button>
+        </Link>
       </nav>
 
-      {paginaActual === "/" && <SearchPage ></SearchPage>}
-      {paginaActual === "/favoritos" && <FavoritesPage></FavoritesPage>}
+      <Routes>
+        <Route path="/" element={<SearchPage />} />
+        <Route path="/favoritos" element={<FavoritesPage />} />
+      </Routes>
     </>
   );
 };
